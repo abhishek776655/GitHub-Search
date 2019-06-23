@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       
+        <title>GITHUB</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style>
+            img{
+                width:100%;
+            }
+            #image{
+                width: 50%   
+            }
+            .block{
+                margin-left: 300px;
+                 margin-right: 300px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="text-center">
+  <img src="download%20(2).png" class="rounded" id="image">
+</div>       
+            <form id="form">
+            <div  class="form-group">
+                <label>Github Username:</label>
+                <input class="form-control"id="username" type="text"><br>
+                <div class="block">
+                   <button type="submit" class="btn btn-secondary btn-lg btn-block" id="button">Search</button>
+                </div>
+                </div></form> 
+           <div id="main"></div> 
+        <script>
+        function getprofile(e){
+                e.preventDefault();
+                var username=document.getElementById("username").value;
+                var xhttp= new XMLHttpRequest();
+                xhttp.onreadystatechange=function(){
+                    if(xhttp.status==200 && xhttp.readyState==4){
+                        var user=JSON.parse(xhttp.responseText);
+                        document.getElementById("main").innerHTML=`<div class="panel            panel-primary">
+                   <div class="panel-heading">
+                   <h3 class="panel-title">${user.name}</h3>
+                   </div>
+                   <div class="panel-body">
+                   <div class="row">
+                   <div class="col-md-3">
+                   <img src="${user.avatar_url}" class="img-thumbnail">
+                   </div>
+                   <div class="col-md-9"> 
+                   <ul class="list-group">
+                   <li class ="list-group-item ">Website: ${user.blog}</li>
+                   <li class ="list-group-item ">Email: ${user.email}</li>
+                   <li class ="list-group-item ">Location: ${user.location}</li>
+                    <li class ="list-group-item ">Followers: ${user.followers}</li>
+                    <li class ="list-group-item ">Following: ${user.following}</li>
+                    <li class ="list-group-item ">Bio: ${user.bio}</li>
+                     <li class ="list-group-item ">Last Active On: ${user.updated_at}</li>
+                    
+                   </ul>
+                   <a class="btn btn-primary" href="${user.html_url}" target="_blank">Visit GITHUB</a>
+                   
+                   </div>
+                   </div>
+                   </div>
+                   </div>`;
+
+}
+                    
+}
+                xhttp.open('GET','https://api.github.com/users/'+username,true);
+                xhttp.send();
+            }
+            document.getElementById("form").addEventListener("submit",getprofile,false);
+        
+            </script>
+        </div>
+    </body>
+      
